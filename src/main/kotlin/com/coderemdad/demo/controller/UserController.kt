@@ -37,6 +37,7 @@ class UserController(val repo: UserRepository) {
 
     @PostMapping("/updateUser")
     fun updateUser(@RequestBody updateRequest: UserEntity): UserEntity {
+        updateRequest.passwordHash= updateRequest.passwordHash.sha256()
         var updated = repo.save(updateRequest)
         return updated
     }
